@@ -43,6 +43,7 @@ export default class Main extends Component {
             }
         })
         this.getCurrent(rollResult)
+        this.winner(this.state)
     }
 
     holdDice = () => {
@@ -80,16 +81,16 @@ export default class Main extends Component {
     }
 
     winner = ({ playerOneActive, playerTwoActive, playerOneTotal, playerOneCurrent, playerTwoTotal, playerTwoCurrent, winingScore }) => {  
-        if ( playerOneActive && (playerOneCurrent || playerOneCurrent + playerOneTotal) >= winingScore) {
-            if ((playerOneCurrent || playerOneCurrent + playerOneTotal) === winingScore) {
+        if ( playerOneActive && (playerOneCurrent + playerOneTotal) >= winingScore) {
+            if ((playerOneCurrent + playerOneTotal) === winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player One Win!!!")
-            } else if ((playerOneCurrent || playerOneCurrent + playerOneTotal) > winingScore) {
+            } else if ((playerOneCurrent + playerOneTotal) > winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player Two Win!!!")
             }
-        } else if ( playerTwoActive && (playerTwoCurrent + playerTwoTotal || playerTwoCurrent) >= winingScore) {
-            if ((playerTwoCurrent + playerTwoTotal || playerTwoCurrent) === winingScore) {
+        } else if ( playerTwoActive && (playerTwoCurrent + playerTwoTotal) >= winingScore) {
+            if ((playerTwoCurrent + playerTwoTotal) === winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player Two Win!!!")
             } else {
@@ -126,7 +127,7 @@ export default class Main extends Component {
         if (this.state.gameActive) {
             submit.setAttribute('class', 'none')
         } else submit.setAttribute('class', 'btn')
-        this.winner(this.state)
+        
     }
 
     
