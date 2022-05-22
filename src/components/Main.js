@@ -29,6 +29,7 @@ export default class Main extends Component {
             playerOneActive: true,
             winingScore: num
         })
+        
     } 
       
     getRolledDice = (rollResult, die1, die2) => {
@@ -40,7 +41,12 @@ export default class Main extends Component {
             }
         })
         this.getCurrent(rollResult)
-        this.winner(this.state)
+    }
+    toggleScreens = () => {
+        const submit = document.getElementById('Submit')
+        if (this.state.gameActive) {
+            submit.setAttribute('class', 'none')
+        } else submit.setAttribute('class', 'btn')
     }
 
     holdDice = () => {
@@ -115,16 +121,10 @@ export default class Main extends Component {
             winingScore: null,
         })
     }
-    componentDidMount() {
-    }
-    
-    componentDidUpdate() {    
-        const submit = document.getElementById('Submit')
-        console.dir(submit)
-        if (this.state.gameActive) {
-            submit.setAttribute('class', 'none')
-        } else submit.setAttribute('class', 'btn')
-        
+
+    componentDidUpdate() {  
+        this.winner(this.state)
+        this.toggleScreens()     
     }
 
     

@@ -21,7 +21,7 @@ export default class ScoreBoard extends Component {
             <>
         <div className='score-board column-c-se'>
             <div className={this.inputWiningScore()}>
-                <h1>Please submit Wining Score greater or equal to 12</h1>
+                <h1 className='set-score'>Please submit Wining Score greater or equal to 12</h1>
             </div>
                     <div className={this.showGame()}> 
             <div className="column-c-se">            
