@@ -7,6 +7,7 @@ import '../Assets/style.css'
 
 export default class Main extends Component {
     state = {
+        gameActive: false,
         rollResult: {
             first: null,
             second: null,
@@ -24,6 +25,7 @@ export default class Main extends Component {
     
     winingScoreInput = (num) => {
         this.setState({
+            gameActive:true,
             playerOneActive: true,
             winingScore: num
         })
@@ -78,16 +80,16 @@ export default class Main extends Component {
     }
 
     winner = ({ playerOneActive, playerTwoActive, playerOneTotal, playerOneCurrent, playerTwoTotal, playerTwoCurrent, winingScore }) => {  
-        if ( playerOneActive && (playerOneTotal || playerOneCurrent) >= winingScore) {
-            if ((playerOneTotal || playerOneCurrent) === winingScore) {
+        if ( playerOneActive && (playerOneCurrent || playerOneCurrent + playerOneTotal) >= winingScore) {
+            if ((playerOneCurrent || playerOneCurrent + playerOneTotal) === winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player One Win!!!")
-            } else if ((playerOneTotal || playerOneCurrent) > winingScore) {
+            } else if ((playerOneCurrent || playerOneCurrent + playerOneTotal) > winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player Two Win!!!")
             }
-        } else if ( playerTwoActive && (playerTwoTotal || playerTwoCurrent) >= winingScore) {
-            if ((playerTwoTotal || playerTwoCurrent) === winingScore) {
+        } else if ( playerTwoActive && (playerTwoCurrent + playerTwoTotal || playerTwoCurrent) >= winingScore) {
+            if ((playerTwoCurrent + playerTwoTotal || playerTwoCurrent) === winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player Two Win!!!")
             } else {
@@ -99,6 +101,7 @@ export default class Main extends Component {
 
     newGame = () => {
         this.setState({
+            gameActive: false,
             rollResult: {
                 first: null,
                 second: null,
@@ -120,14 +123,16 @@ export default class Main extends Component {
     componentDidUpdate() {    
         const submit = document.getElementById('Submit')
         console.dir(submit)
-        if(this.state.winingScore >= 12) { submit.setAttribute('class', 'none')}
+        if (this.state.gameActive) {
+            submit.setAttribute('class', 'none')
+        } else submit.setAttribute('class', 'btn')
         this.winner(this.state)
     }
 
     
   render() {
     return (
-        <main className='row-c-se'>
+        <main className='row-c-c'>
             <PlayerSection
                 playerCurrent={this.state.playerOneCurrent}
                 playerTotal={this.state.playerOneTotal} 
@@ -143,6 +148,7 @@ export default class Main extends Component {
                 newGame={this.newGame}
                 winingScoreInput={this.winingScoreInput}
                 inputWiningScore={this.state.winingScore}
+                gameActive={this.state.gameActive}
             />
             <br />
             <br />

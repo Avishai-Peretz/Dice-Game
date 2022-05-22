@@ -28,7 +28,7 @@ export default class ScoreBoard extends Component {
                 <RollDice rollResult={this.props.rollResult} getRolledDice={this.props.getRolledDice}/>
                 <HoldDIce holdDice={this.props.holdDice} />
             </div>        
-            <DesirableScore winingScoreInput={this.props.winingScoreInput} />
+            <DesirableScore winingScoreInput={this.props.winingScoreInput} gameActive={this.props.gameActive} />
       </div>
             </>
     )
