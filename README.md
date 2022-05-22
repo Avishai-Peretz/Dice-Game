@@ -1,1 +1,1 @@
-<img src="src\Assets\project diagram.png" width="400"/>
+<img src="src\Assets\project diagram.png" width="1000"/>
