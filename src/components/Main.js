@@ -25,9 +25,9 @@ const INITIAL_STATE = {
 export default class Main extends Component {
     state = INITIAL_STATE
 
-    winingScoreInput = (score) => {
+    winingScoreInput = (score, num) => {
         if (score instanceof String) {
-            score = parseInt(score);
+            score = parseInt(score, num);
         }
         if (score > 11) {
             this.setState({
@@ -53,14 +53,14 @@ export default class Main extends Component {
     holdDice = () => {
         if (this.state.playerOneActive) {
             const playerTotal = this.state.playerOneTotal + this.state.playerOneCurrent
-            this.setState({
+                this.setState({
                 playerOneTotal: playerTotal,
                 playerOneCurrent: null,
                 playerOneActive: false,
                 playerTwoActive: true,
                 totalScore: null,
             })
-        } else {
+        } else if (this.state.playerTwoActive){
             const playerTotal = this.state.playerTwoTotal + this.state.playerTwoCurrent
             this.setState({
                 playerTwoTotal: playerTotal,
@@ -89,18 +89,18 @@ export default class Main extends Component {
     winner = ({ playerOneActive, playerTwoActive, playerOneTotal, playerOneCurrent, playerTwoTotal, playerTwoCurrent, winingScore }) => {
         if (playerOneActive && (playerOneCurrent + playerOneTotal) >= winingScore) {
             if ((playerOneCurrent + playerOneTotal) === winingScore) {
-                setTimeout(() => this.newGame(), 1000)
+                this.newGame()
                 return alert("Player One Win!!!")
             } else if ((playerOneCurrent + playerOneTotal) > winingScore) {
-                setTimeout(() => this.newGame(), 1000)
+                this.newGame()
                 return alert("Player Two Win!!!")
             }
         } else if (playerTwoActive && (playerTwoCurrent + playerTwoTotal) >= winingScore) {
             if ((playerTwoCurrent + playerTwoTotal) === winingScore) {
-                setTimeout(() => this.newGame(), 1000)
+                this.newGame()
                 return alert("Player Two Win!!!")
             } else {
-                setTimeout(() => this.newGame(), 1000)
+                this.newGame()
                 return alert("Player One Win!!!")
             }
         }
@@ -108,7 +108,7 @@ export default class Main extends Component {
 
     newGame = () => this.setState(INITIAL_STATE)
 
-    componentDidUpdate() {
+    async componentDidUpdate() {
         this.winner(this.state)
     }
 

@@ -22,7 +22,7 @@ export default class DsirableScore extends Component {
           onClick={(e) => {
             e.preventDefault()
             const { inputValue } = this.state
-            this.props.winingScoreInput(inputValue)
+            this.props.winingScoreInput(inputValue,10)
           }
           }>Submit</button>
       </form>

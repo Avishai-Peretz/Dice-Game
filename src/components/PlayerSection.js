@@ -5,10 +5,11 @@ export default class PlayerSection extends Component {
         if (this.props.activePlayer) {
          return "active" 
       } else {return "inactive"}
-  }
+    }
+    
     render() {
     return (
-        <div className="player-section column-c-se">
+        <div className="player-section column-c-se" data-active={this.props.activePlayer}>
             <div className="player-container">
                 <div className={`player column-c-c ${this.active()}`}>
                     {this.props.player}
