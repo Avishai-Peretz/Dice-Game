@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 
 export default class DsirableScore extends Component {
   state = { inputValue: "" }
-  
+
 
   render() {
     return (
-      <form  className="column-c-c ">
+      <form className="column-c-c ">
         <input
           className="input"
           type="number"
@@ -17,13 +17,14 @@ export default class DsirableScore extends Component {
           }}
         />
         <button
-          id="Submit"
+          data-invisible={this.props.gameActive}
           className='btn'
           onClick={(e) => {
-          e.preventDefault()
-          this.props.winingScoreInput(parseInt(this.state.inputValue, 10))
-          } 
-        }>Submit</button>
+            e.preventDefault()
+            const { inputValue } = this.state
+            this.props.winingScoreInput(inputValue)
+          }
+          }>Submit</button>
       </form>
     )
   }

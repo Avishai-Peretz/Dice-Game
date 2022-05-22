@@ -5,35 +5,40 @@ import '../Assets/display.css'
 import '../Assets/fonts.css'
 import '../Assets/style.css'
 
+
+const INITIAL_STATE = {
+    gameActive: false,
+    rollResult: {
+        first: null,
+        second: null,
+        total: null
+    },
+    playerOneActive: false,
+    playerTwoActive: false,
+    playerOneTotal: null,
+    playerOneCurrent: null,
+    playerTwoTotal: null,
+    playerTwoCurrent: null,
+    totalScore: null,
+    winingScore: null,
+}
 export default class Main extends Component {
-    state = {
-        gameActive: false,
-        rollResult: {
-            first: null,
-            second: null,
-            total: null
-        } ,      
-        playerOneActive: false,
-        playerTwoActive: false,
-        playerOneTotal:null,
-        playerOneCurrent:null,
-        playerTwoTotal:null,
-        playerTwoCurrent: null,
-        totalScore: null,
-        winingScore: null,
-    }
-    
-    winingScoreInput = (num) => {
-        if (num > 11) {          
+    state = INITIAL_STATE
+
+    winingScoreInput = (score) => {
+        if (score instanceof String) {
+            score = parseInt(score);
+        }
+        if (score > 11) {
             this.setState({
-                gameActive:true,
+                gameActive: true,
                 playerOneActive: true,
-                winingScore: num
+                winingScore: score
             })
         }
-        
-    } 
-      
+
+    }
+
     getRolledDice = (rollResult, die1, die2) => {
         this.setState({
             rollResult: {
@@ -44,29 +49,25 @@ export default class Main extends Component {
         })
         this.getCurrent(rollResult)
     }
-    toggleScreens = () => {
-        const submit = document.getElementById('Submit')
-        if (this.state.gameActive) {
-            submit.setAttribute('class', 'none')
-        } else submit.setAttribute('class', 'btn')
-    }
 
     holdDice = () => {
-        if (this.state.playerOneActive)  {
+        if (this.state.playerOneActive) {
             const playerTotal = this.state.playerOneTotal + this.state.playerOneCurrent
             this.setState({
                 playerOneTotal: playerTotal,
                 playerOneCurrent: null,
                 playerOneActive: false,
-                playerTwoActive: true
-            })            
+                playerTwoActive: true,
+                totalScore: null,
+            })
         } else {
-            const playerTotal = this.state.playerOneTotal + this.state.playerTwoCurrent
+            const playerTotal = this.state.playerTwoTotal + this.state.playerTwoCurrent
             this.setState({
-                playerTwoTotal: playerTotal, 
+                playerTwoTotal: playerTotal,
                 playerTwoCurrent: null,
                 playerOneActive: true,
-                playerTwoActive: false
+                playerTwoActive: false,
+                totalScore: null,
             })
         }
     }
@@ -76,17 +77,17 @@ export default class Main extends Component {
             const current = this.state.playerOneCurrent + rollResult
             this.setState({ playerOneCurrent: current })
             const total = this.state.totalScore + rollResult
-            this.setState({totalScore:total})
+            this.setState({ totalScore: total })
         } else {
             const current = this.state.playerTwoCurrent + rollResult
             this.setState({ playerTwoCurrent: current })
             const total = this.state.totalScore + rollResult
-            this.setState({totalScore:total})
+            this.setState({ totalScore: total })
         }
     }
 
-    winner = ({ playerOneActive, playerTwoActive, playerOneTotal, playerOneCurrent, playerTwoTotal, playerTwoCurrent, winingScore }) => {  
-        if ( playerOneActive && (playerOneCurrent + playerOneTotal) >= winingScore) {
+    winner = ({ playerOneActive, playerTwoActive, playerOneTotal, playerOneCurrent, playerTwoTotal, playerTwoCurrent, winingScore }) => {
+        if (playerOneActive && (playerOneCurrent + playerOneTotal) >= winingScore) {
             if ((playerOneCurrent + playerOneTotal) === winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player One Win!!!")
@@ -94,7 +95,7 @@ export default class Main extends Component {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player Two Win!!!")
             }
-        } else if ( playerTwoActive && (playerTwoCurrent + playerTwoTotal) >= winingScore) {
+        } else if (playerTwoActive && (playerTwoCurrent + playerTwoTotal) >= winingScore) {
             if ((playerTwoCurrent + playerTwoTotal) === winingScore) {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player Two Win!!!")
@@ -102,62 +103,44 @@ export default class Main extends Component {
                 setTimeout(() => this.newGame(), 1000)
                 return alert("Player One Win!!!")
             }
-        } 
+        }
     }
 
-    newGame = () => {
-        this.setState({
-            gameActive: false,
-            rollResult: {
-                first: null,
-                second: null,
-                total: null
-            } ,      
-            playerOneActive: false,
-            playerTwoActive: false,
-            playerOneTotal:null,
-            playerOneCurrent:null,
-            playerTwoTotal:null,
-            playerTwoCurrent: null,
-            totalScore: null,
-            winingScore: null,
-        })
-    }
+    newGame = () => this.setState(INITIAL_STATE)
 
-    componentDidUpdate() {  
+    componentDidUpdate() {
         this.winner(this.state)
-        this.toggleScreens()     
     }
 
-    
-  render() {
-    return (
-        <main className='row-c-c'>
-            <PlayerSection
-                playerCurrent={this.state.playerOneCurrent}
-                playerTotal={this.state.playerOneTotal} 
-                activePlayer={this.state.playerOneActive}
-                player="Plyer One" />
-            <br />
-            <br />
-            <ScoreBoard
-                rollResult={this.state.rollResult}
-                holdDice={this.holdDice}
-                getRolledDice={this.getRolledDice}
-                newGame={this.newGame}
-                winingScoreInput={this.winingScoreInput}
-                inputWiningScore={this.state.winingScore}
-                gameActive={this.state.gameActive}
-            />
-            <br />
-            <br />
-            <PlayerSection
-                playerCurrent={this.state.playerTwoCurrent}
-                playerTotal={this.state.playerTwoTotal} 
-                activePlayer={this.state.playerTwoActive} 
-                player="Plyer Two" />
-            
-      </main>
-    )
-  }
+
+    render() {
+        return (
+            <main className='row-c-c'>
+                <PlayerSection
+                    playerCurrent={this.state.playerOneCurrent}
+                    playerTotal={this.state.playerOneTotal}
+                    activePlayer={this.state.playerOneActive}
+                    player="Plyer One" />
+                <br />
+                <br />
+                <ScoreBoard
+                    rollResult={this.state.rollResult}
+                    holdDice={this.holdDice}
+                    getRolledDice={this.getRolledDice}
+                    newGame={this.newGame}
+                    winingScoreInput={this.winingScoreInput}
+                    inputWiningScore={this.state.winingScore}
+                    gameActive={this.state.gameActive}
+                />
+                <br />
+                <br />
+                <PlayerSection
+                    playerCurrent={this.state.playerTwoCurrent}
+                    playerTotal={this.state.playerTwoTotal}
+                    activePlayer={this.state.playerTwoActive}
+                    player="Plyer Two" />
+
+            </main>
+        )
+    }
 }

@@ -285,3 +285,7 @@ main {
     grid-area: nine;
   }
   
+
+.btn[data-invisible="true"] {
+  display: none;
+}
