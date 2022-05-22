@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react'
+import React, { Component } from 'react'
 import ScoreBoard from "./ScoreBoard"
 import PlayerSection from "./PlayerSection.js"
 import '../Assets/display.css'
