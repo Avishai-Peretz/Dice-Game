@@ -30,10 +30,7 @@ export default class Main extends Component {
             winingScore: num
         })
     } 
-    
-    
-    
-    
+      
     getRolledDice = (rollResult, die1, die2) => {
         this.setState({
             rollResult: {
@@ -142,7 +139,6 @@ export default class Main extends Component {
             <br />
             <br />
             <ScoreBoard
-                className="score-board"
                 rollResult={this.state.rollResult}
                 holdDice={this.holdDice}
                 getRolledDice={this.getRolledDice}
