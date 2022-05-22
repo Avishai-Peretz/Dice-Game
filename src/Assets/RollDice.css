@@ -1,0 +1,31 @@
+.RollDice{
+    height: 20rem;
+    font-size: 10px;
+  }
+    
+  .RollDice-container{
+    background: transparent;
+  }
+  /* Styling rolldice button */
+  .RollDice button{
+    width:15em;
+    padding:1.5em;
+    border: 0px;
+    border-radius: 10px;
+    color:white;
+    background-color:#333;
+    margin-top: 3em;
+    align-self: center;
+  }
+    
+  /* Setting hover effect on button */
+  .RollDice button:hover{
+    cursor: pointer;
+  }
+    
+  .RollDice-rolling{
+    border: 0px;
+    border-radius: 10px;
+    background-color:darkslateblue !important;
+    opacity:0.7
+  }

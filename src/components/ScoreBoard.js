@@ -23,10 +23,12 @@ export default class ScoreBoard extends Component {
             <div className={this.inputWiningScore()}>
                 <h1>Please submit Wining Score greater or equal to 12</h1>
             </div>
-            <div className={this.showGame()}>                
+                    <div className={this.showGame()}> 
+            <div className="column-c-se">            
                 <NewGame  newGame={this.props.newGame} />
                 <RollDice rollResult={this.props.rollResult} getRolledDice={this.props.getRolledDice}/>
                 <HoldDIce holdDice={this.props.holdDice} />
+            </div>        
             </div>        
             <DesirableScore winingScoreInput={this.props.winingScoreInput} gameActive={this.props.gameActive} />
       </div>

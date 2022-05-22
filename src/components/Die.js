@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../Assets/Die.css'
 
-export const rollDie = () => {
-    const die = Math.ceil(Math.random() * 6)
+export const rollDie = (num) => {
+    const die = Math.floor(Math.random() * num)
     return die
 }
 
 export class Die extends Component {
     state = {}
+
     render() {
+    const {face, rolling} = this.props
     return (
         <div>
-           {this.props.rollResult} 
+          <FontAwesomeIcon icon={['fas', `fa-dice-${face}`]} className={`Die 
+                ${rolling && 'Die-shaking'}`} />
       </div>
     )
   }
