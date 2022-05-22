@@ -31,7 +31,7 @@ class RollDice extends Component{
   
     setTimeout(() => {
       this.setState({rolling:false}, this.props.getRolledDice((die1 + die2), die1, die2))
-    },1000)
+    },500)
   }
   
   render(){
