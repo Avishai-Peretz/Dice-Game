@@ -3,6 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 document.querySelector('title').innerText = "Dice Game"
+
 function App() {
   return (
     <div className="App column-c-c">

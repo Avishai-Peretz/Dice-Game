@@ -24,11 +24,13 @@ export default class Main extends Component {
     }
     
     winingScoreInput = (num) => {
-        this.setState({
-            gameActive:true,
-            playerOneActive: true,
-            winingScore: num
-        })
+        if (num > 11) {          
+            this.setState({
+                gameActive:true,
+                playerOneActive: true,
+                winingScore: num
+            })
+        }
         
     } 
       
