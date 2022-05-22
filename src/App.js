@@ -5,8 +5,9 @@ library.add(fas)
 
 function App() {
   return (
-    <div className="App">
-        <Main />
+    <div className="App column-c-c">
+      <Main />
+      <a href='https://github.com/Avishai-Peretz/Dice-Game' className='txt-28'>Github Page</a>
     </div>
   );
 }

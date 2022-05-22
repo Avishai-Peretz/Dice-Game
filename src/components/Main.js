@@ -153,7 +153,8 @@ export default class Main extends Component {
                 playerCurrent={this.state.playerTwoCurrent}
                 playerTotal={this.state.playerTwoTotal} 
                 activePlayer={this.state.playerTwoActive} 
-                player="Plyer Two"/>
+                player="Plyer Two" />
+            
       </main>
     )
   }

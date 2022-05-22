@@ -32,6 +32,7 @@ export default class ScoreBoard extends Component {
             </div>        
             <DesirableScore winingScoreInput={this.props.winingScoreInput} gameActive={this.props.gameActive} />
       </div>
+      
             </>
     )
   }
