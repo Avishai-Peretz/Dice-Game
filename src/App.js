@@ -1,9 +1,8 @@
+import Main from "./components/Main.js"
 function App() {
   return (
     <div className="App">
-        <p>
-        Dice Game
-        </p>
+        <Main />
     </div>
   );
 }
